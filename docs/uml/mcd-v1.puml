@@ -1,0 +1,352 @@
+﻿' Statut : VALIDE
+' Version : V1
+' Date de validation : 2026-03-10
+' Portee : MCD metier jury-friendly du projet JDR
+@startuml
+left to right direction
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam entity {
+  BackgroundColor White
+  BorderColor Black
+}
+
+package "Administration et comptes" {
+  entity "Utilisateur" as User {
+    * id
+    --
+    email
+    nomAffichage
+    roleSysteme
+  }
+}
+
+package "Referentiel d'univers" {
+  entity "Univers" as Universe {
+    * id
+    --
+    nom
+    description
+  }
+
+  entity "Race" as Race {
+    * id
+    --
+    nom
+    description
+  }
+
+  entity "Classe" as CharacterClass {
+    * id
+    --
+    nom
+    description
+  }
+
+  entity "Competence" as SkillDefinition {
+    * id
+    --
+    nom
+    description
+    origine
+  }
+
+  entity "ObjetModele" as ItemTemplate {
+    * id
+    --
+    nom
+    categorie
+    rarete
+  }
+
+  entity "KitDepart" as StarterKit {
+    * id
+    --
+    nom
+  }
+
+  entity "LiaisonKitObjet" as StarterKitItem {
+    * id
+    --
+    quantite
+  }
+
+  entity "CarteModele" as MapTemplate {
+    * id
+    --
+    nom
+  }
+
+  entity "NoeudCarteModele" as MapNodeTemplate {
+    * id
+    --
+    nom
+    typeLieu
+  }
+
+  entity "LienCarteModele" as MapEdgeTemplate {
+    * id
+    --
+    libelle
+  }
+
+  entity "ObjetDonneCompetence" as ItemGrantedSkill {
+    * id
+    --
+    conditionActivation
+  }
+}
+
+package "Profils reutilisables" {
+  entity "ProfilPersonnage" as CharacterProfile {
+    * id
+    --
+    nom
+    portrait
+    personnalite
+  }
+}
+
+package "Campagnes et sessions" {
+  entity "Campagne" as Campaign {
+    * id
+    --
+    nom
+    codeInvitation
+    statut
+  }
+
+  entity "ParticipationCampagne" as CampaignMembership {
+    * id
+    --
+    roleCampagne
+  }
+
+  entity "SelectionKitCampagne" as CampaignStarterKitSelection {
+    * id
+  }
+
+  entity "SessionJeu" as Session {
+    * id
+    --
+    titre
+    statut
+    debut
+    fin
+  }
+}
+
+package "Personnages en campagne" {
+  entity "PersonnageCampagne" as Character {
+    * id
+    --
+    typePersonnage
+    nomSnapshot
+    portraitSnapshot
+    personnaliteSnapshot
+    niveau
+    experience
+    force
+    agilite
+    intelligence
+    charisme
+    endurance
+    chance
+    pointsVieCourants
+    pointsVieMax
+    manaCourant
+    manaMax
+    visibilite
+  }
+
+  entity "CompetencePersonnage" as CharacterSkill {
+    * id
+    --
+    sourceObtention
+    active
+  }
+
+  entity "Inventaire" as InventoryItem {
+    * id
+    --
+    quantite
+    equipe
+    sourceObtention
+  }
+}
+
+package "Cartographie de campagne" {
+  entity "CarteCampagne" as CampaignMap {
+    * id
+    --
+    modeGeneration
+  }
+
+  entity "NoeudCarteCampagne" as CampaignMapNode {
+    * id
+    --
+    nom
+    typeLieu
+  }
+
+  entity "LienCarteCampagne" as CampaignMapEdge {
+    * id
+    --
+    libelle
+  }
+}
+
+package "Evenements de jeu" {
+  entity "Evenement" as Event {
+    * id
+    --
+    typeEvenement
+    titre
+    description
+    visibilite
+  }
+
+  entity "ChoixEvenement" as EventOption {
+    * id
+    --
+    libelle
+    ordre
+  }
+
+  entity "SelectionChoix" as EventSelection {
+    * id
+  }
+
+  entity "ConsequenceEvenement" as EventConsequence {
+    * id
+    --
+    typeCible
+    typeImpact
+    resumeImpact
+  }
+}
+
+Universe ||--o{ Race
+Universe ||--o{ CharacterClass
+Universe ||--o{ SkillDefinition
+Universe ||--o{ ItemTemplate
+Universe ||--o{ StarterKit
+Universe ||--o{ MapTemplate
+Universe ||--o{ Campaign
+Universe ||--o{ CharacterProfile
+
+Race ||--o{ CharacterProfile
+CharacterClass ||--o{ CharacterProfile
+CharacterClass ||--o{ StarterKit
+StarterKit ||--o{ StarterKitItem
+ItemTemplate ||--o{ StarterKitItem
+ItemTemplate ||--o{ ItemGrantedSkill
+SkillDefinition ||--o{ ItemGrantedSkill
+MapTemplate ||--o{ MapNodeTemplate
+MapNodeTemplate ||--o{ MapEdgeTemplate : depart
+MapNodeTemplate ||--o{ MapEdgeTemplate : arrivee
+
+User ||--o{ CharacterProfile
+User ||--o{ CampaignMembership
+Campaign ||--o{ CampaignMembership
+Campaign ||--o{ Session
+Campaign ||--o{ Character
+Campaign ||--|| CampaignMap
+Campaign ||--o{ CampaignStarterKitSelection
+
+CharacterProfile o|--o{ Character
+CampaignMembership o|--o| Character : incarne
+Race o|--o{ Character : raceSnapshot
+CharacterClass o|--o{ Character : classeSnapshot
+
+Character ||--o{ CharacterSkill
+SkillDefinition ||--o{ CharacterSkill
+Character ||--o{ InventoryItem
+ItemTemplate ||--o{ InventoryItem
+
+CampaignStarterKitSelection }o--|| StarterKit
+CampaignStarterKitSelection }o--|| CharacterClass
+
+CampaignMap }o--|| MapTemplate
+CampaignMap ||--o{ CampaignMapNode
+CampaignMapNode ||--o{ CampaignMapEdge : depart
+CampaignMapNode ||--o{ CampaignMapEdge : arrivee
+CampaignMapNode o|--o{ Character : positionActuelle
+
+Session ||--o{ Event
+Event ||--o{ EventOption
+EventOption ||--o{ EventSelection
+Character ||--o{ EventSelection
+Event ||--o{ EventConsequence
+Character o|--o{ EventConsequence : ciblePersonnage
+
+note right of CharacterProfile
+Le profil est reutilisable entre campagnes.
+Il conserve l'identite du personnage :
+- nom
+- portrait
+- race
+- classe
+- personnalite
+end note
+
+note right of Character
+Instance du personnage dans une campagne.
+Le niveau, l'equipement, la position et la progression
+sont propres a la campagne.
+end note
+
+note top of CampaignMembership
+Regle metier :
+- un seul MJ par campagne
+- un utilisateur peut participer a plusieurs campagnes
+end note
+
+note bottom of Character
+Regle metier :
+- 1 seul personnage joueur actif par utilisateur et par campagne
+- un participant joueur peut incarner 0 ou 1 personnage dans une campagne
+- les NPC et ENEMY n'ont ni profil reutilisable ni participant proprietaire
+- le snapshot preserve l'historique des anciennes campagnes
+end note
+
+note bottom of CampaignStarterKitSelection
+Le MJ choisit un kit de depart
+par classe pour la campagne.
+A une campagne donnee, une classe ne peut avoir qu'un seul kit choisi.
+end note
+
+note bottom of InventoryItem
+Une competence donnee par un objet
+est active uniquement si l'objet est equipe.
+end note
+
+note bottom of EventConsequence
+Le journal de session trace les choix et leurs consequences.
+Une consequence peut toucher un personnage,
+ou plus largement l'etat de la campagne.
+end note
+
+note bottom of CampaignMap
+Une seule carte active par campagne.
+La carte peut etre choisie ou tiree aleatoirement,
+puis elle est stockee pour reprendre la partie.
+end note
+
+note bottom of Universe
+Les campagnes utilisent un univers sans surcharge locale.
+Le referentiel de jeu vit dans l'univers.
+En V1, un seul univers medieval est exploite,
+mais l'entite est conservee pour les evolutions futures.
+end note
+
+legend right
+MCD V1 - version validee
+Statut : valide le 2026-03-10
+Objectif : presenter les entites metier,
+leurs cardinalites et les regles fortes de conception.
+endlegend
+@enduml
+

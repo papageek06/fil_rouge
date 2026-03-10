@@ -1,0 +1,86 @@
+﻿@startuml
+hide methods
+skinparam classAttributeIconSize 0
+
+' Version de travail pour la V2.
+' Elle reprend la V1 et sera enrichie au fil des arbitrages.
+
+class User {
+  +id: UUID
+  +email: string
+  +passwordHash: string
+  +displayName: string
+  +systemRole: USER|ADMIN
+  +createdAt: datetime
+}
+
+class Universe {
+  +id: UUID
+  +name: string
+  +description: text
+  +createdAt: datetime
+}
+
+class CharacterProfile {
+  +id: UUID
+  +name: string
+  +portraitUrl: string
+  +personality: text
+  +createdAt: datetime
+}
+
+class Campaign {
+  +id: UUID
+  +name: string
+  +invitationCode: string
+  +status: DRAFT|LOBBY|ACTIVE|PAUSED|ENDED
+  +createdAt: datetime
+}
+
+class Session {
+  +id: UUID
+  +title: string
+  +status: PLANNED|ACTIVE|CLOSED
+}
+
+class Character {
+  +id: UUID
+  +type: PLAYER|NPC|ENEMY
+  +level: int
+  +experience: int
+  +strength: int
+  +agility: int
+  +intelligence: int
+  +charisma: int
+  +endurance: int
+  +luck: int
+  +currentHp: int
+  +maxHp: int
+  +currentMana: int
+  +maxMana: int
+}
+
+class Event {
+  +id: UUID
+  +type: NARRATIVE|COMBAT|SYSTEM
+  +title: string
+  +createdAt: datetime
+}
+
+User "1" -- "0..*" CharacterProfile
+Universe "1" -- "0..*" CharacterProfile
+Universe "1" -- "0..*" Campaign
+Campaign "1" -- "0..*" Session
+Campaign "1" -- "0..*" Character
+CharacterProfile "0..1" -- "0..*" Character
+Session "1" -- "0..*" Event
+
+note bottom of Event
+V2 accueillera les raffinements :
+- historique
+- audit
+- consequences
+- notifications
+- progression detaillee
+end note
+@enduml

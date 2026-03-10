@@ -1,0 +1,208 @@
+﻿PROJET CDAN - PLATEFORME NUMERIQUE DE GESTION ET DE SIMULATION DE CAMPAGNES DE JEUX DE ROLE
+
+Date de creation du document : 2026-03-10
+Source : contenu fourni par l'utilisateur a partir du sujet Ynov Campus
+
+==================================================
+1. INTITULE DU PROJET
+==================================================
+Sujet 6 - Plateforme numerique de gestion et de simulation de campagnes de jeux de role
+
+==================================================
+2. CONTEXTE
+==================================================
+Une association specialisee dans le jeu de role souhaite moderniser ses outils afin de mieux structurer :
+- la gestion des campagnes ;
+- les personnages ;
+- les univers ;
+- les evenements de jeu.
+
+Constat actuel :
+- outils heterogenes ;
+- documents partages ;
+- feuilles de personnage papier ou numeriques ;
+- tableurs ;
+- forums ;
+- messageries ;
+- applications non integrees.
+
+Problemes identifies :
+- manque de coherence des regles ;
+- faible tracabilite des evenements ;
+- continuite narrative difficile ;
+- analyse de l'evolution des campagnes complexe.
+
+==================================================
+3. OBJECTIF GENERAL
+==================================================
+Concevoir, piloter et realiser une application web centralisee servant a la fois :
+- d'outil d'aide au maitre de jeu ;
+- de support structure pour les joueurs ;
+- de plateforme de gestion complete du cycle de vie d'une campagne de JDR.
+
+==================================================
+4. OBJECTIFS METIER PRINCIPAUX
+==================================================
+La solution doit permettre :
+- la creation et la gestion de campagnes de jeux de role ;
+- la definition et la maintenance d'univers, de regles et de referentiels de jeu ;
+- la creation, l'evolution et le suivi de personnages ;
+- la gestion d'evenements de jeu : sessions, combats, decisions, consequences ;
+- la production de donnees calculees : statistiques, historiques, evolutions ;
+- la structuration des echanges entre joueurs et maitre(s) de jeu ;
+- la securisation des donnees et la conformite reglementaire.
+
+==================================================
+5. LIVRABLE ATTENDU
+==================================================
+Le livrable attendu est :
+- une application fonctionnelle et demonstrable ;
+- un dossier de validation ;
+- des preuves permettant au jury de constater la couverture complete des competences des 4 blocs CDAN.
+
+==================================================
+6. PERIMETRE FONCTIONNEL
+==================================================
+6.1 Roles et securite
+- Joueur : gere un ou plusieurs personnages.
+- Maitre de jeu : gere la campagne, les regles et la narration.
+- Administrateur : gere la configuration globale, la moderation et la supervision.
+
+Contraintes :
+- droits differencies ;
+- informations visibles uniquement par le MJ ;
+- gestion fine des autorisations ;
+- securite des acces ;
+- confidentialite des donnees.
+
+6.2 Campagnes et univers
+Une campagne doit contenir :
+- un univers de reference ;
+- des regles ;
+- un contexte narratif ;
+- des cartes ;
+- des factions ;
+- des joueurs et personnages associes ;
+- un historique de sessions ;
+- un historique d'evenements ;
+- des etats narratifs : chapitres, arcs, quetes.
+
+6.3 Personnages et regles
+Les personnages doivent gerer :
+- caracteristiques ;
+- competences ;
+- equipements ;
+- etats temporaires ou permanents ;
+- historique d'evolution.
+
+Les regles de calcul doivent etre :
+- explicites ;
+- parametrables ;
+- tracables.
+
+6.4 Sessions et evenements
+La plateforme doit permettre :
+- la preparation des sessions par le MJ ;
+- l'enregistrement des decisions et evenements majeurs ;
+- la gestion des consequences sur les personnages et la campagne ;
+- l'archivage et la restitution narrative.
+
+6.5 Donnees calculees et indicateurs
+Le systeme doit produire :
+- progression des personnages ;
+- repartition des actions ou decisions ;
+- statistiques de combats ou de reussites ;
+- indicateurs d'engagement des joueurs.
+
+6.6 Notifications et automatisations
+Le systeme doit gerer des evenements automatiques comme :
+- montee de niveau ;
+- fin d'un arc narratif ;
+- session planifiee ou reportee ;
+- decision ayant des consequences majeures.
+
+Ces evenements doivent declencher :
+- des notifications ciblees ;
+- une historisation ;
+- une tracabilite.
+
+==================================================
+7. EXIGENCES CDAN A COUVRIR
+==================================================
+Bloc 1
+- conception de l'architecture applicative securisee ;
+- separation claire logique metier / regles / donnees ;
+- maintenabilite ;
+- evolutivite ;
+- accessibilite ;
+- normes de presentation.
+
+Bloc 2
+- analyse de l'existant ;
+- formalisation du process as-is ;
+- proposition d'un process to-be ;
+- recette fonctionnelle ;
+- validation ;
+- pilotage Agile ;
+- communication professionnelle.
+
+Bloc 3
+- decomposition en sous-problemes ;
+- algorithmes non triviaux ;
+- qualite du code ;
+- correction sans regression ;
+- tests unitaires ;
+- gestion des erreurs ;
+- integration de services externes.
+
+Bloc 4
+- retro-documentation d'un existant ;
+- environnement de test multi-tiers ;
+- scripts d'installation, configuration et initialisation ;
+- integrabilite ;
+- exploitation des flux synchrones et asynchrones.
+
+==================================================
+8. CONTRAINTES FORTES A GARDER EN TETE
+==================================================
+- architecture metier riche et evolutive ;
+- algorithmes de regles complexes ;
+- gestion d'evenements et d'historique ;
+- separation stricte des roles et des acces ;
+- automatisation professionnelle ;
+- securisation des donnees ;
+- conformite reglementaire ;
+- base de donnees tracee et coherente.
+
+==================================================
+9. PREMIERE INTERPRETATION PRODUIT
+==================================================
+Direction conseillee pour le projet :
+- une plateforme web de JDR narratif ;
+- orientee gestion de campagne, personnages, regles, sessions et journal d'evenements ;
+- avec roles Joueur / MJ / Admin ;
+- avec moteur de regles et statistiques ;
+- avec notifications et historique.
+
+Ce projet ne doit pas etre interprete en premiere intention comme :
+- un MMORPG ;
+- un jeu 3D temps reel ;
+- un simple site vitrine ;
+- un chat seul sans logique metier.
+
+==================================================
+10. PROCHAINES ETAPES
+==================================================
+A partir de ce document, les prochaines etapes seront :
+- definir les limites exactes du MVP ;
+- choisir la stack technique ;
+- formaliser les objectifs fonctionnels prioritaires ;
+- decrire les regles de jeu V1 ;
+- etablir un backlog initial ;
+- concevoir le modele de donnees ;
+- preparer le cadrage architecture + securite.
+
+==================================================
+11. TRACE SOURCE
+==================================================
+Ce document a ete cree a partir du sujet transmis par l'utilisateur le 2026-03-10, en conservant les objectifs et contraintes majeurs du cahier des charges pedagogique CDAN.
